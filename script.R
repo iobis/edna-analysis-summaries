@@ -56,17 +56,17 @@ occurrence <- resolve_to_accepted(occurrence)
 stats <- occurrence %>%
   filter(!is.na(higherGeography)) %>%
   group_by(higherGeography) %>%
-  summarize(species = n_distinct(species), asvs = n_distinct(DNA_sequence), reads = sum(organismQuantity))
+  summarize(species = n_distinct(species, na.rm = TRUE), asvs = n_distinct(DNA_sequence, na.rm = TRUE), reads = sum(organismQuantity))
 
 marker_stats <- occurrence %>%
   filter(!is.na(higherGeography)) %>%
   group_by(higherGeography, pcr_primer_name_forward) %>%
-  summarize(species = n_distinct(species), asvs = n_distinct(DNA_sequence), reads = sum(organismQuantity))
+  summarize(species = n_distinct(species, na.rm = TRUE), asvs = n_distinct(DNA_sequence, na.rm = TRUE), reads = sum(organismQuantity))
 
 family_stats <- occurrence %>%
   filter(!is.na(higherGeography)) %>%
   group_by(higherGeography, pcr_primer_name_forward, phylum, class, order, family) %>%
-  summarize(species = n_distinct(species), asvs = n_distinct(DNA_sequence), reads = sum(organismQuantity))
+  summarize(species = n_distinct(species, na.rm = TRUE), asvs = n_distinct(DNA_sequence, na.rm = TRUE), reads = sum(organismQuantity))
 
 write.csv(stats, "results/stats.csv", row.names = FALSE, quote = FALSE, na = "")
 write.csv(marker_stats, "results/marker_stats.csv", row.names = FALSE, quote = FALSE, na = "")
