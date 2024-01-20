@@ -65,7 +65,7 @@ marker_stats <- occurrence %>%
 
 family_stats <- occurrence %>%
   filter(!is.na(higherGeography)) %>%
-  group_by(higherGeography, pcr_primer_name_forward, phylum, family) %>%
+  group_by(higherGeography, pcr_primer_name_forward, phylum, class, order, family) %>%
   summarize(species = n_distinct(species), asvs = n_distinct(DNA_sequence), reads = sum(organismQuantity))
 
 write.csv(stats, "results/stats.csv", row.names = FALSE, quote = FALSE, na = "")
